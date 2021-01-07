@@ -3,7 +3,8 @@ Spring 필요한것만 올리자 -> .metadata등등은 필요 없음
 target/ 만 지운다음에 올린 후 다시 ignore 
 
 
-Servers/
 .settings/
-target/
 src/test/
+.classpath
+.project
+.springBeans
