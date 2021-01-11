@@ -21,7 +21,7 @@ public class ANDao {
 	public ANDao() {
 		try {
 			Context context = new InitialContext();
-			dataSource = (DataSource) context.lookup("java:/comp/env/team01");
+			dataSource = (DataSource) context.lookup("java:/comp/env/dteam");
 			/*dataSource = (DataSource) context.lookup("java:/comp/env/CSS");*/
 		} catch (NamingException e) {
 			e.getMessage();
@@ -39,18 +39,19 @@ public class ANDao {
 		try {
 			connection = dataSource.getConnection();
 			String query = "select * "					
-							+ " from member" 
-							+ " where id = '" + idin + "' and passwd = '" + passwdin + "' ";
+							+ " from tbl_mb" 
+							+ " where mb_id = '" + idin + "' and mb_passwd = '" + passwdin + "' ";
 			prepareStatement = connection.prepareStatement(query);
 			resultSet = prepareStatement.executeQuery();
 			
 			while (resultSet.next()) {
-				String id = resultSet.getString("id");
-				String name = resultSet.getString("name");
-				String phonenumber = resultSet.getString("phonenumber");
-				String address = resultSet.getString("address"); 
+				String id = resultSet.getString("mb_id");
+				String name = resultSet.getString("mb_name");
+				String phonenumber = resultSet.getString("mb_phonenum");
+				String birth = resultSet.getString("mb_birth"); 
+				String email = resultSet.getString("mb_email"); 
 
-				adto = new MemberDTO(id, name, phonenumber, address);							
+				adto = new MemberDTO(id, name, phonenumber, birth, email);							
 			}	
 			
 			System.out.println("MemberDTO id : " + adto.getId());
@@ -83,24 +84,24 @@ public class ANDao {
 	}
     
     public int anJoin(String id, String passwd, String name, 
-    							String phonenumber, String address) { 
+    							String phonenumber, String birth, String email) { 
     	
 		Connection connection = null;
 		PreparedStatement prepareStatement = null;
 		int state = -100;
-		
+
 		try {
 			connection = dataSource.getConnection();
-			String query = "insert into member(id, passwd, name, phonenumber, address) " + 
+			String query = "insert into tbl_mb(mb_id, mb_passwd, mb_name, mb_phonenum, mb_birth, mb_email) " + 
 			               "values('" + id + "', '" + passwd + "', '" + name + "', '" + 
-					        			phonenumber + "', '" + address + "' )";
+					        			phonenumber + "', '" + birth + "', '" + email  +"' )";
 			prepareStatement = connection.prepareStatement(query);
 			state = prepareStatement.executeUpdate();
 			
 			if (state > 0) {
-				System.out.println(state + "삽입성공");				
+				System.out.println(state + "가입성공!");
 			} else {
-				System.out.println(state + "삽입실패");
+				System.out.println(state + "가입실패!");
 			}
 			
 		} catch (Exception e) {			
@@ -150,7 +151,7 @@ public class ANDao {
 				adtos.add(adto);			
 			}	
 			
-			System.out.println("adtos크기" + adtos.size());
+			System.out.println("adtos�겕湲�" + adtos.size());
 			
 		} catch (Exception e) {
 			
@@ -198,9 +199,9 @@ public class ANDao {
 			state = prepareStatement.executeUpdate();
 			
 			if (state > 0) {
-				System.out.println(state + "삽입성공");				
+				System.out.println(state + "�궫�엯�꽦怨�");				
 			} else {
-				System.out.println(state + "삽입실패");
+				System.out.println(state + "�궫�엯�떎�뙣");
 			}
 
 		} catch (Exception e) {
@@ -237,7 +238,7 @@ public class ANDao {
 		int state = -1;
 	
 		try {			
-			// 아이디는 수정할수 없음			
+			// �븘�씠�뵒�뒗 �닔�젙�븷�닔 �뾾�쓬			
 			connection = dataSource.getConnection();
 			String query = "update android set " 			             
 		             + " name = '" + name + "' "
@@ -249,10 +250,10 @@ public class ANDao {
 			state = prepareStatement.executeUpdate();
 	
 			if (state > 0) {
-				System.out.println("수정1성공");
+				System.out.println("�닔�젙1�꽦怨�");
 				
 			} else {
-				System.out.println("수정1실패");
+				System.out.println("�닔�젙1�떎�뙣");
 			}
 	
 		} catch (Exception e) {
@@ -289,7 +290,7 @@ public class ANDao {
 		int state = -1;
 	
 		try {			
-			// 아이디는 수정할수 없음			
+			// �븘�씠�뵒�뒗 �닔�젙�븷�닔 �뾾�쓬			
 			connection = dataSource.getConnection();
 			String query = "update android set " 			             
 		             + " name = '" + name + "' "
@@ -300,10 +301,10 @@ public class ANDao {
 			state = prepareStatement.executeUpdate();
 	
 			if (state > 0) {
-				System.out.println("수정2성공");
+				System.out.println("�닔�젙2�꽦怨�");
 				
 			} else {
-				System.out.println("수정2실패");
+				System.out.println("�닔�젙2�떎�뙣");
 			}
 	
 		} catch (Exception e) {
@@ -348,9 +349,9 @@ public class ANDao {
 			state = prepareStatement.executeUpdate();
 
 			if (state > 0) {
-				System.out.println("삭제성공");				
+				System.out.println("�궘�젣�꽦怨�");				
 			} else {
-				System.out.println("삭제실패");
+				System.out.println("�궘�젣�떎�뙣");
 			}
 
 		} catch (Exception e) {

@@ -76,19 +76,22 @@ public class AController {
 		String passwd = (String) req.getParameter("passwd");
 		String name = (String) req.getParameter("name");
 		String phonenumber = (String) req.getParameter("phonenumber");
-		String address = (String) req.getParameter("address");
+		String birth = (String) req.getParameter("birth");
+		String email = (String) req.getParameter("email");
 		
 		System.out.println(id);
 		System.out.println(passwd);
 		System.out.println(name);
 		System.out.println(phonenumber);
-		System.out.println(address);
+		System.out.println(birth);
+		System.out.println(email);
 		
 		model.addAttribute("id", id);
 		model.addAttribute("passwd", passwd);
 		model.addAttribute("name", name);
 		model.addAttribute("phonenumber", phonenumber);
-		model.addAttribute("address", address);
+		model.addAttribute("birth", birth);
+		model.addAttribute("email", email);
 		
 		command = new AJoinCommand();
 		command.execute(model);
@@ -132,8 +135,8 @@ public class AController {
 		model.addAttribute("date", date);	
 		model.addAttribute("dbImgPath", dbImgPath);	
 		
-		//파일 받은 것을 req를 캐스팅 해줘야한다.(파일이 없을 떄 아래글을 쓰면 에러난다)
-		//multi가 null이 아닐때 해줘야한다.???
+		//�뙆�씪 諛쏆� 寃껋쓣 req瑜� 罹먯뒪�똿 �빐以섏빞�븳�떎.(�뙆�씪�씠 �뾾�쓣 �뻹 �븘�옒湲��쓣 �벐硫� �뿉�윭�궃�떎)
+		//multi媛� null�씠 �븘�땺�븣 �빐以섏빞�븳�떎.???
 		MultipartRequest multi = (MultipartRequest)req;
 		MultipartFile file = multi.getFile("image");
 		
@@ -142,7 +145,7 @@ public class AController {
 			String fileName = file.getOriginalFilename();
 			System.out.println(fileName);
 			
-			// 디렉토리 존재하지 않으면 생성
+			// �뵒�젆�넗由� 議댁옱�븯吏� �븡�쑝硫� �깮�꽦
 			makeDir(req);	
 				
 			if(file.getSize() > 0){			
@@ -153,14 +156,14 @@ public class AController {
 				System.out.println( "fileSize : " + file.getSize());					
 												
 			 	try {
-			 		// 이미지파일 저장
+			 		// �씠誘몄��뙆�씪 ���옣
 					file.transferTo(new File(realImgPath, fileName));										
 				} catch (Exception e) {
 					e.printStackTrace();
 				} 
 									
 			}else{
-				// 이미지파일 실패시
+				// �씠誘몄��뙆�씪 �떎�뙣�떆
 				fileName = "FileFail.jpg";
 				String realImgPath = req.getSession().getServletContext()
 						.getRealPath("/resources/" + fileName);
@@ -213,7 +216,7 @@ public class AController {
 		model.addAttribute("date", date);
 		model.addAttribute("dbImgPath", dbImgPath);
 		
-		// 이미지가 서로 같으면 삭제하지 않고 다르면 기존이미지 삭제
+		// �씠誘몄�媛� �꽌濡� 媛숈쑝硫� �궘�젣�븯吏� �븡怨� �떎瑜대㈃ 湲곗〈�씠誘몄� �궘�젣
 		if(!dbImgPath.equals(pDbImgPath)){			
 			
 			String pFileName = req.getParameter("pDbImgPath").split("/")[req.getParameter("pDbImgPath").split("/").length -1];
@@ -241,7 +244,7 @@ public class AController {
 			String fileName = file.getOriginalFilename();
 			System.out.println(fileName);
 			
-			// 디렉토리 존재하지 않으면 생성
+			// �뵒�젆�넗由� 議댁옱�븯吏� �븡�쑝硫� �깮�꽦
 			makeDir(req);	
 				
 			if(file.getSize() > 0){			
@@ -252,7 +255,7 @@ public class AController {
 				System.out.println( "fileSize : " + file.getSize());					
 												
 			 	try {
-			 		// 이미지파일 저장
+			 		// �씠誘몄��뙆�씪 ���옣
 					file.transferTo(new File(realImgPath, fileName));						
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -310,7 +313,7 @@ public class AController {
 		String pFileName = req.getParameter("delDbImgPath").split("/")[req.getParameter("delDbImgPath").split("/").length -1];
 		String delDbImgPath = req.getSession().getServletContext().getRealPath("/resources/" + pFileName);		
 		
-		// 이미지 파일지우기
+		// �씠誘몄� �뙆�씪吏��슦湲�
 		File delfile = new File(delDbImgPath);
 		System.out.println(delfile.getAbsolutePath());
 		

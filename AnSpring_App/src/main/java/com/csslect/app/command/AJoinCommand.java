@@ -11,13 +11,16 @@ public class AJoinCommand implements ACommand{
 		String passwd = (String)model.asMap().get("passwd");	
 		String name = (String)model.asMap().get("name");
 		String phonenumber = (String)model.asMap().get("phonenumber");
-		String address = (String)model.asMap().get("address");
+		String birth = (String)model.asMap().get("birth");
+		String email = (String)model.asMap().get("email");
 		
 		ANDao adao = new ANDao();
-		int state = adao.anJoin(id, passwd, name, phonenumber, address);
+		int state = adao.anJoin(id, passwd, name, phonenumber, birth, email);
 		
 		model.addAttribute("anJoin", String.valueOf(state)); 
 		
 	}
+	
+
 	
 }
