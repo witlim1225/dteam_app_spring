@@ -1,25 +1,25 @@
 package com.csslect.app.dto;
 
 public class MemberDTO {
-	String id, passwd, name, phonenumber, address;
+	String id, passwd, name, phonenumber, birth, email;
 
-	// 로그인할때 비밀번호 없이 멤버변수 보낼때
-	public MemberDTO(String id, String name, String phonenumber, String address) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.phonenumber = phonenumber;
-		this.address = address;
-	}
-
-	// 데이터베이스에 멤버변수 추가할때
-	public MemberDTO(String id, String passwd, String name, String phonenumber, String address) {
+	public MemberDTO(String id, String passwd, String name, String phonenumber, String birth, String email) {
 		super();
 		this.id = id;
 		this.passwd = passwd;
 		this.name = name;
 		this.phonenumber = phonenumber;
-		this.address = address;
+		this.birth = birth;
+		this.email = email;
+	}
+
+	public MemberDTO(String id, String name, String phonenumber, String birth, String email) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.phonenumber = phonenumber;
+		this.birth = birth;
+		this.email = email;
 	}
 
 	public String getId() {
@@ -54,14 +54,23 @@ public class MemberDTO {
 		this.phonenumber = phonenumber;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getBirth() {
+		return birth;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setBirth(String birth) {
+		this.birth = birth;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	
-	
+		
 
 }
